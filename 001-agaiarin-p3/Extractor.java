@@ -112,6 +112,7 @@ class Extractor
 		String returnString = "";
 
 		if (!tokenizer.hasMoreTokens()) { //checks for empty string
+			System.out.println("Empty string found, returning empty string.");
 			return returnString;
 		}
 
@@ -126,12 +127,15 @@ class Extractor
 				}
 			}
 		}
+		System.out.println("First while loop completed. current uniNumber: " + uniNumber + "; current uni: " + uni + ";");
 
 		tokenizer = new StringTokenizer(sound); //remake tokenizer because we have to iterate again
 		boolean foundUni = false;
 		if (uniNumber == -1) { //check if NONE of the sounds are emphasized
 			foundUni = true;
 		}
+
+		System.out.println("foundUni initialized. Current foundUni: " + foundUni);
 
 		while (tokenizer.hasMoreTokens()) {
 			String currentToken = tokenizer.nextToken();
@@ -143,7 +147,7 @@ class Extractor
 				}
 			}
 			else {
-				if (currentToken == uni) {
+				if (currentToken.equals(uni)) {
 					returnString = returnString + currentToken;
 					if (tokenizer.hasMoreTokens()) {
 						returnString = returnString + " ";
@@ -196,14 +200,20 @@ class Extractor
 		if (line.equals("ENTHUSIASTICALLY  IH0 N TH UW2 Z IY0 AE1 S T IH0 K L IY0")) {
 			System.out.println("Yay1");
 		}
+		System.out.println();
+
 		word = extractWordFromLine(line);
 		if (word.equals("ENTHUSIASTICALLY")) {
 			System.out.println("Yay2");
 		}
+		System.out.println();
+
 		sound = extractSoundFromLine(line);
 		if (sound.equals("IH0 N TH UW2 Z IY0 AE1 S T IH0 K L IY0")) {
 			System.out.println("Yay3");
 		}
+		System.out.println();
+
 		soundGroup = extractSoundGroupFromSound(sound);
 		if (soundGroup.equals("UW2 Z IY0 AE1 S T IH0 K L IY0")) {
 			System.out.println("Yay4");
@@ -212,21 +222,27 @@ class Extractor
 			System.out.println("Test 4 failed.");
 			System.out.println("Sound group received: " + soundGroup);
 		}
+		System.out.println();
 
 		location = 63;
 		line = lines.get(location).toString();
 		if (line.equals("ST_MARTIN  S EY1 N T M AA1 R T IH0 N")) {
 			System.out.println("Yay5");
 		}
+		System.out.println();
 
 		word = extractWordFromLine(line);
 		if (word.equals("ST_MARTIN")) {
 			System.out.println("Yay6");
 		}
+		System.out.println();
+
 		sound = extractSoundFromLine(line);
 		if (sound.equals("S EY1 N T M AA1 R T IH0 N")) {
 			System.out.println("Yay7");
 		}
+		System.out.println();
+
 		soundGroup = extractSoundGroupFromSound(sound);
 		if (soundGroup.equals("AA1 R T IH0 N")) {
 			System.out.println("Yay8");
@@ -235,24 +251,33 @@ class Extractor
 			System.out.println("Test 8 failed.");
 			System.out.println("Sound group received: " + soundGroup);
 		}
+		System.out.println();
 		
 		line = "";
 		word = extractWordFromLine(line);
 		if (word.equals("")) {
 			System.out.println("Yay9");
 		}
+		System.out.println();
+
 		sound = extractSoundFromLine(line);
 		if (sound.equals("")) {
 			System.out.println("Yay10");
 		}
+		System.out.println();
+
 		soundGroup = extractSoundGroupFromSound(sound);
 		if (soundGroup.equals("")) {
 			System.out.println("Yay11");
 		}
+		System.out.println();
+
 		
 		soundGroup = extractSoundGroupFromSound("S EY N T M AA R T IH N");
 		if (soundGroup.equals("S EY N T M AA R T IH N")) {
 			System.out.println("Yay12");
 		}
+		System.out.println();
+
 	}
 }
