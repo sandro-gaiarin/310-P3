@@ -105,9 +105,72 @@ class Extractor
 	 * @param sound sound
 	 * @return string
 	 */
-	public static String extractSoundGroupFromSound(String sound) { 
-		// YOUR CODE GOES HERE 
-		return "";
+	public static String extractSoundGroupFromSound(String sound) {
+		int uniNumber = -1; //tracks largest number for most emphasized unisound
+		String uni = ""; //tracks most emphasized unisound
+		StringTokenizer tokenizer = new StringTokenizer(sound);
+		String returnString = "";
+
+		while (tokenizer.hasMoreTokens()) { //iterate through each token
+			String currentToken = tokenizer.nextToken();
+			char[] tokenArray = currentToken.toCharArray(); //turn token into a character array
+			if (Character.isDigit(tokenArray[tokenArray.length-1])) { //check if the last character in currentToken is a number
+				int lastDigit = Character.getNumericValue(tokenArray[tokenArray.length-1]); //if it's a number, it's assigned to lastDigit
+				if (lastDigit >= uniNumber) { //if lastDigit is greater than or equal to uniNumber...
+					uniNumber = lastDigit; //lastDigit becomes the new uniNumber
+					uni = currentToken; //currentToken becomes the current most emphasized sound
+				}
+			}
+		}
+
+		tokenizer = new StringTokenizer(sound); //remake tokenizer because we have to iterate again
+		boolean foundUni = false;
+
+		while (tokenizer.hasMoreTokens()) {
+			String currentToken = tokenizer.nextToken();
+
+			if (foundUni) {
+				returnString = returnString + currentToken;
+				if (tokenizer.hasMoreTokens()) {
+					returnString = returnString + " ";
+				}
+			}
+			else {
+				if (currentToken == uni) {
+					returnString = returnString + currentToken;
+					if (tokenizer.hasMoreTokens()) {
+						returnString = returnString + " ";
+					}
+					foundUni = true;
+				}
+			}
+		}
+
+		return returnString;
+		/* PSEUDOCODE:
+		greatest token number = -1 (initial number)
+		most emphasized unisound = string token
+		tokenizer, etc.
+
+		iterate through the sound string {
+			check each token for a number at the end of it; so, basically, need to iterate through each token {
+				if there's a number at the end of the token {
+					if number is greater than current greatest token number {
+						this token becomes the new main sound
+					}
+				}
+			}
+		}
+
+		search for most emphasized unisound again {
+			if the sound is found {
+				change boolean to true
+			}
+			if soundfoundboolean true {
+				add sound to returnString
+			}
+		}
+		 */
 	}
 
 
