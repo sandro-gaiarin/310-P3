@@ -77,7 +77,7 @@ class Extractor
 		String returnString = "";
 		StringTokenizer tokenizer = new StringTokenizer(line);
 
-		if (tokenizer.countTokens() == 0) { //check for empty string
+		if (!tokenizer.hasMoreTokens()) { //check for empty string
 			return returnString;
 		}
 
@@ -111,6 +111,10 @@ class Extractor
 		StringTokenizer tokenizer = new StringTokenizer(sound);
 		String returnString = "";
 
+		if (!tokenizer.hasMoreTokens()) { //checks for empty string
+			return returnString;
+		}
+
 		while (tokenizer.hasMoreTokens()) { //iterate through each token
 			String currentToken = tokenizer.nextToken();
 			char[] tokenArray = currentToken.toCharArray(); //turn token into a character array
@@ -125,6 +129,9 @@ class Extractor
 
 		tokenizer = new StringTokenizer(sound); //remake tokenizer because we have to iterate again
 		boolean foundUni = false;
+		if (uniNumber == -1) { //check if NONE of the sounds are emphasized
+			foundUni = true;
+		}
 
 		while (tokenizer.hasMoreTokens()) {
 			String currentToken = tokenizer.nextToken();
@@ -201,12 +208,17 @@ class Extractor
 		if (soundGroup.equals("UW2 Z IY0 AE1 S T IH0 K L IY0")) {
 			System.out.println("Yay4");
 		}
+		else {
+			System.out.println("Test 4 failed.");
+			System.out.println("Sound group received: " + soundGroup);
+		}
 
 		location = 63;
 		line = lines.get(location).toString();
 		if (line.equals("ST_MARTIN  S EY1 N T M AA1 R T IH0 N")) {
 			System.out.println("Yay5");
 		}
+
 		word = extractWordFromLine(line);
 		if (word.equals("ST_MARTIN")) {
 			System.out.println("Yay6");
@@ -218,6 +230,10 @@ class Extractor
 		soundGroup = extractSoundGroupFromSound(sound);
 		if (soundGroup.equals("AA1 R T IH0 N")) {
 			System.out.println("Yay8");
+		}
+		else {
+			System.out.println("Test 8 failed.");
+			System.out.println("Sound group received: " + soundGroup);
 		}
 		
 		line = "";
