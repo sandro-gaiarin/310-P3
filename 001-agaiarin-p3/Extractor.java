@@ -8,6 +8,8 @@ import java.io.*;
  *  A helper class containing functions that you should use in SimilarSounds.java
  *  Note that in your implementations you could use StringTokenizer and String.split()
  *
+ * @author W. Masri and Alessandro Gaiarin
+ *
  */
  
 class Extractor
