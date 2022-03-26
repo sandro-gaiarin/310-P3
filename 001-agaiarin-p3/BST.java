@@ -43,9 +43,9 @@ class BST<T extends Comparable<T>> {
 	 *  Note: you can create private helper methods
 	 *  @return string in which the elements are listed in an inorder fashion
 	 */
-	public String inorderToString() { //TODO FIX
+	public String inorderToString() {
 		String returnString = inStringNode(root, "");
-		return returnString; //return the TRIMMED version of returnString to get rid of any trailing spaces.
+		return returnString.trim(); //return the TRIMMED version of returnString to get rid of any trailing spaces.
 		//didn't know trim() was part of java.lang! that's nice.
 	}
 
@@ -55,11 +55,11 @@ class BST<T extends Comparable<T>> {
 	 * @param returnString
 	 * @return
 	 */
-	private String inStringNode(Node<T> node, String returnString) { //TODO FIX
+	private String inStringNode(Node<T> node, String returnString) {
 		if (node != null) {
-			inStringNode(node.left, returnString); //travel down the left subtree
+			returnString = inStringNode(node.left, returnString); //travel down the left subtree
 			returnString = returnString + "\"" + node + "\" "; //display the root
-			inStringNode(node.right, returnString); //travel down the right subtree
+			returnString = inStringNode(node.right, returnString); //travel down the right subtree
 		}
 		return returnString; //return the completed string
 	}
