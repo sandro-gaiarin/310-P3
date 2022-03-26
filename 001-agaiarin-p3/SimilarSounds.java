@@ -87,9 +87,29 @@ class SimilarSounds
 	 * To achieve this, you need to use the methods in the Extractor class
 	 * @param lines content of the database
 	 */
-	public static void populateSoundGroupToSimilarWordsMap(List<String> lines) {
-		
-		// YOUR CODE GOES HERE
+	public static void populateSoundGroupToSimilarWordsMap(List<String> lines) { //TODO Test
+		for (int i = 0; i < lines.size(); ++i) {
+			//Get the sound group:
+			String soundGroup = Extractor.extractSoundGroupFromSound(lines.get(i));
+			if (soundGroupToSimilarWords.containsKey(soundGroup)) { //continue if it's already been added to the map
+				continue;
+			}
+			else {
+				//create a BST for all similar sounding words:
+				BST<String> similarWordsBST = new BST<>();
+				//Begin BST root with current word:
+				similarWordsBST.insert(Extractor.extractWordFromLine(lines.get(i)));
+
+				for (int j = 0; j < lines.size(); ++j) {
+					//Make sure word hasn't already been added to the BST AND the sound groups match
+					if (similarWordsBST.find(Extractor.extractWordFromLine(lines.get(j))) == null &&
+					soundGroup.compareTo(Extractor.extractSoundGroupFromSound(lines.get(j))) == 0) {
+						similarWordsBST.insert(Extractor.extractWordFromLine(lines.get(j)));
+					}
+				}
+				soundGroupToSimilarWords.putIfAbsent(soundGroup, similarWordsBST);
+			}
+		}
 	}
 	
 	/**
