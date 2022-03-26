@@ -70,8 +70,11 @@ class SimilarSounds
 	 * To achieve this, you need to use the methods in the Extractor class 
 	 * @param lines lines
 	 */
-	public static void populateWordToSoundMap(List<String> lines) {	
-		// YOUR CODE GOES HERE
+	public static void populateWordToSoundMap(List<String> lines) { //TODO Test
+		for (int i = 0; i < lines.size(); ++i) { //step through list of lines
+			wordToSound.put(Extractor.extractWordFromLine(lines.get(i)), Extractor.extractSoundFromLine(lines.get(i)));
+			//extracts word for the key, and sound for the value, and puts them in the wordToSound map
+		}
 	}
 	
 	/**
