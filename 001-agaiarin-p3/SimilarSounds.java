@@ -72,6 +72,7 @@ class SimilarSounds
 	 */
 	public static void populateWordToSoundMap(List<String> lines) { //TODO Test
 		for (int i = 0; i < lines.size(); ++i) { //step through list of lines
+			System.out.println("WE'RE LOOPING IN populateWordToSoundMap!!!!!!!");
 			wordToSound.put(Extractor.extractWordFromLine(lines.get(i)), Extractor.extractSoundFromLine(lines.get(i)));
 			//extracts word for the key, and sound for the value, and puts them in the wordToSound map
 		}
@@ -89,6 +90,7 @@ class SimilarSounds
 	 */
 	public static void populateSoundGroupToSimilarWordsMap(List<String> lines) { //TODO Test
 		for (int i = 0; i < lines.size(); ++i) {
+			System.out.println("WE'RE LOOPING IN populateSoundGroupToSimilarWordsMap!!!!!!!!");
 			//Get the sound group:
 			String soundGroup = Extractor.extractSoundGroupFromSound(lines.get(i));
 			if (soundGroupToSimilarWords.containsKey(soundGroup)) { //continue if it's already been added to the map
@@ -139,6 +141,7 @@ class SimilarSounds
 		ArrayList<String> unrecognizedWords = new ArrayList<>();
 		ArrayList<String> wordsCopy = new ArrayList<>();
 		for (int i = 0; i < words.length; ++i) { //make words[] into wordsCopy so we can use ArrayList functions
+			System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
 			wordsCopy.add(words[i]); //maybe there's an easier way to do this but it works
 		}
 
@@ -150,10 +153,11 @@ class SimilarSounds
 			try { //try block if the word doesn't exist
 				BST<String> similarWordTree = soundGroupToSimilarWords.get(wordToSound.get(capsWord));
 				for (int j = i + 1; j < wordsCopy.size(); ++j) {
-					if (similarWordTree.find(wordsCopy.get(j)) != null) {
+					System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
+					if (similarWordTree.find((wordsCopy.get(j)).toUpperCase()) != null) { //make it uppercase
 						similarWords = "\"" + wordsCopy.get(j) + "\" ";
-						j = j - 1; //have to move j back when we remove the word from the list
 						wordsCopy.remove(j); //remove it from the list if it is a similar word
+						j = j - 1; //have to move j back when we remove the word from the list
 					}
 				}
 				similarWords = similarWords.trim(); //trim the space from the end
@@ -168,7 +172,7 @@ class SimilarSounds
 			if (similarWords == "") {
 				similarWords = "none";
 			}
-			System.out.println("\"" + word "\" sounds similar to: " + similarWords); //OUTPUT
+			System.out.println("\"" + word + "\" sounds similar to: " + similarWords); //OUTPUT
 		}
 
 		//Below should happen at the end
