@@ -93,7 +93,7 @@ class SimilarSounds
 	 * To achieve this, you need to use the methods in the Extractor class
 	 * @param lines content of the database
 	 */
-	public static void populateSoundGroupToSimilarWordsMap(List<String> lines) { //TODO Test
+	public static void populateSoundGroupToSimilarWordsMap(List<String> lines) { //TODO PRETTY SURE THIS IS WHAT'S BROKEN
 		for (int i = 0; i < lines.size(); ++i) {
 			System.out.println("WE'RE LOOPING IN populateSoundGroupToSimilarWordsMap!!!!!!!!");
 			//Get the sound group:
