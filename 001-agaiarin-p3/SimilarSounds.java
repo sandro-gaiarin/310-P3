@@ -32,7 +32,7 @@ class SimilarSounds
 		ArrayList<String> lines = (ArrayList<String>)Extractor.readFile("word_to_sound.txt");
 		populateWordToSoundMap(lines); //TODO this runs in about five seconds
 		populateSoundGroupToSimilarWordsMap(lines); //TODO this runs an unknown amount of time lmao
-		/*
+
 		if (words.length >= 2) {
 			// check which of the words in the list have matching sounds 
 			findSimilarWordsInList(words); 
@@ -40,7 +40,7 @@ class SimilarSounds
 			// get the list of words with matching sounds as this word
 			findSimilarWordsTo(words[0]);
 		}
-		*/
+
 	}
 	
 	/**
@@ -96,6 +96,20 @@ class SimilarSounds
 	public static void populateSoundGroupToSimilarWordsMap(List<String> lines) { //TODO PRETTY SURE THIS IS WHAT'S BROKEN
 		for (int i = 0; i < lines.size(); ++i) {
 			System.out.println("WE'RE LOOPING IN populateSoundGroupToSimilarWordsMap!!!!!!!!");
+			String soundGroup = Extractor.extractSoundGroupFromSound(lines.get(i));
+			try {
+				(soundGroupToSimilarWords.get(soundGroup)).insert(lines.get(i)); //insert word to BST
+			} catch (NullPointerException e) {
+				// if we're here, then soundGroup doesn't exist in the hashmap
+				BST<String> bst = new BST<>();
+				bst.insert(lines.get(i));
+				soundGroupToSimilarWords.put(soundGroup, bst);
+			}
+		}
+
+		/*
+		for (int i = 0; i < lines.size(); ++i) {
+			//System.out.println("WE'RE LOOPING IN populateSoundGroupToSimilarWordsMap!!!!!!!!");
 			//Get the sound group:
 			String soundGroup = Extractor.extractSoundGroupFromSound(lines.get(i));
 			if (soundGroupToSimilarWords.containsKey(soundGroup)) { //continue if it's already been added to the map
@@ -116,7 +130,7 @@ class SimilarSounds
 				}
 				soundGroupToSimilarWords.putIfAbsent(soundGroup, similarWordsBST);
 			}
-		}
+		} */
 	}
 	
 	/**
@@ -146,7 +160,7 @@ class SimilarSounds
 		ArrayList<String> unrecognizedWords = new ArrayList<>();
 		ArrayList<String> wordsCopy = new ArrayList<>();
 		for (int i = 0; i < words.length; ++i) { //make words[] into wordsCopy so we can use ArrayList functions
-			System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
+			//System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
 			wordsCopy.add(words[i]); //maybe there's an easier way to do this but it works
 		}
 
@@ -158,7 +172,7 @@ class SimilarSounds
 			try { //try block if the word doesn't exist
 				BST<String> similarWordTree = soundGroupToSimilarWords.get(wordToSound.get(capsWord));
 				for (int j = i + 1; j < wordsCopy.size(); ++j) {
-					System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
+					//System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
 					if (similarWordTree.find(capsWord) != null) { //make it uppercase
 						similarWords = similarWords + "\"" + wordsCopy.get(j) + "\" ";
 						wordsCopy.remove(j); //remove it from the list if it is a similar word
