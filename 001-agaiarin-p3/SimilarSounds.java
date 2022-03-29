@@ -136,8 +136,51 @@ class SimilarSounds
 	 * @param words list of words to examine
 	 */
 	public static void findSimilarWordsInList(String words[]) {
-			
-		// YOUR CODE GOES HERE
+		ArrayList<String> unrecognizedWords = new ArrayList<>();
+		ArrayList<String> wordsCopy = new ArrayList<>();
+		for (int i = 0; i < words.length; ++i) { //make words[] into wordsCopy so we can use ArrayList functions
+			wordsCopy.add(words[i]); //maybe there's an easier way to do this but it works
+		}
+
+		for (int i = 0; i < wordsCopy.size(); ++i) { //step through list of words
+			String word = wordsCopy.get(i); //word we're checking
+			String capsWord = word.toUpperCase(); //word in all caps, for checking against the word_to_sound file
+			String similarWords = "";
+
+			try { //try block if the word doesn't exist
+				BST<String> similarWordTree = soundGroupToSimilarWords.get(wordToSound.get(capsWord));
+				for (int j = i + 1; j < wordsCopy.size(); ++j) {
+					if (similarWordTree.find(wordsCopy.get(j)) != null) {
+						similarWords = "\"" + wordsCopy.get(j) + "\" ";
+						j = j - 1; //have to move j back when we remove the word from the list
+						wordsCopy.remove(j); //remove it from the list if it is a similar word
+					}
+				}
+				similarWords = similarWords.trim(); //trim the space from the end
+
+			} catch (NullPointerException e){
+				unrecognizedWords.add(word); //if it gets a nullpointerexception, the word does not exist in the txt doc.
+			}
+			//next I need to build up the return string with what needs to be output
+
+
+
+			if (similarWords == "") {
+				similarWords = "none";
+			}
+			System.out.println("\"" + word "\" sounds similar to: " + similarWords); //OUTPUT
+		}
+
+		//Below should happen at the end
+		String unrecognizedString = "";
+		for (int i = 0; i < unrecognizedWords.size(); ++i) {
+			unrecognizedString = unrecognizedString + "\"" + unrecognizedWords.get(i) + "\" ";
+		}
+		if (unrecognizedWords.size() == 0) {
+			unrecognizedString = "none";
+		}
+		unrecognizedString = unrecognizedString.trim();
+		System.out.println("Unrecognized words: " + unrecognizedString); //OUTPUT
 	}
 
 	/**
