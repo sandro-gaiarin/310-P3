@@ -108,13 +108,14 @@ class Extractor
 	 * @return string
 	 */
 	public static String extractSoundGroupFromSound(String sound) {
+		//System.out.println("EXTRACT SOUND GROUP FROM: " + sound);
 		int uniNumber = -1; //tracks largest number for most emphasized unisound
 		String uni = ""; //tracks most emphasized unisound
 		StringTokenizer tokenizer = new StringTokenizer(sound);
 		String returnString = "";
 
 		if (!tokenizer.hasMoreTokens()) { //checks for empty string
-			System.out.println("Empty string found, returning empty string.");
+			//System.out.println("Empty string found, returning empty string.");
 			return returnString;
 		}
 
@@ -129,7 +130,7 @@ class Extractor
 				}
 			}
 		}
-		System.out.println("First while loop completed. current uniNumber: " + uniNumber + "; current uni: " + uni + ";");
+		//System.out.println("First while loop completed. current uniNumber: " + uniNumber + "; current uni: " + uni + ";");
 
 		tokenizer = new StringTokenizer(sound); //remake tokenizer because we have to iterate again
 		boolean foundUni = false;
@@ -137,7 +138,7 @@ class Extractor
 			foundUni = true;
 		}
 
-		System.out.println("foundUni initialized. Current foundUni: " + foundUni);
+		//System.out.println("foundUni initialized. Current foundUni: " + foundUni);
 
 		while (tokenizer.hasMoreTokens()) {
 			String currentToken = tokenizer.nextToken();

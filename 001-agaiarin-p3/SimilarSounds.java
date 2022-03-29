@@ -7,6 +7,10 @@ import java.util.Map;
  */
 class SimilarSounds
 {
+	//TODO:
+	// populateSoundGroupToSimilarWordsMap is, I believe, the culprit of our current issues.
+	// findSimilarWordsInList is probably broken too but I'll cross that bridge when I come to it.
+
 	// ******DO NO CHANGE********//
 		
 	/**
@@ -26,16 +30,17 @@ class SimilarSounds
 	public static void processWords(String words[]) {
 			
 		ArrayList<String> lines = (ArrayList<String>)Extractor.readFile("word_to_sound.txt");
-		populateWordToSoundMap(lines);
-		populateSoundGroupToSimilarWordsMap(lines);
-		
+		populateWordToSoundMap(lines); //TODO this runs in about five seconds
+		populateSoundGroupToSimilarWordsMap(lines); //TODO this runs an unknown amount of time lmao
+		/*
 		if (words.length >= 2) {
 			// check which of the words in the list have matching sounds 
 			findSimilarWordsInList(words); 
 		} else if (words.length == 1) {
 			// get the list of words with matching sounds as this word
 			findSimilarWordsTo(words[0]);
-		} 
+		}
+		*/
 	}
 	
 	/**
@@ -154,8 +159,8 @@ class SimilarSounds
 				BST<String> similarWordTree = soundGroupToSimilarWords.get(wordToSound.get(capsWord));
 				for (int j = i + 1; j < wordsCopy.size(); ++j) {
 					System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
-					if (similarWordTree.find((wordsCopy.get(j)).toUpperCase()) != null) { //make it uppercase
-						similarWords = "\"" + wordsCopy.get(j) + "\" ";
+					if (similarWordTree.find(capsWord) != null) { //make it uppercase
+						similarWords = similarWords + "\"" + wordsCopy.get(j) + "\" ";
 						wordsCopy.remove(j); //remove it from the list if it is a similar word
 						j = j - 1; //have to move j back when we remove the word from the list
 					}
