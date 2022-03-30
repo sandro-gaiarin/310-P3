@@ -201,7 +201,17 @@ class SimilarSounds
 	 * However, if it cannot be found in the database an appropriate error message should be displayed
 	 * @param theWord word to process
 	 */
-	public static void findSimilarWordsTo(String theWord) {		
-		// YOUR CODE GOES HERE
+	public static void findSimilarWordsTo(String theWord) {
+		String returnString = "Words similar to \"" + theWord + "\": ";
+		try {
+			String sound = wordToSound.get(theWord.toUpperCase());
+			String soundGroup = Extractor.extractSoundGroupFromSound(sound);
+			BST<String> bst = soundGroupToSimilarWords.get(soundGroup);
+			returnString = returnString + bst;
+
+		} catch (NullPointerException e) {
+			returnString = "Unrecognized word: \"" + theWord + "\"";
+		}
+		System.out.println(returnString);
 	}
 }
