@@ -8,8 +8,8 @@ import java.util.Map;
 class SimilarSounds
 {
 	//TODO:
-	// populateSoundGroupToSimilarWordsMap is, I believe, the culprit of our current issues.
-	// findSimilarWordsInList is probably broken too but I'll cross that bridge when I come to it.
+	// Need to add an "output" print statement to Deliverables? Not sure.
+	// Commenting, cleanup!
 
 	// ******DO NO CHANGE********//
 		
