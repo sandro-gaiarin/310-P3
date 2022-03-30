@@ -13,6 +13,10 @@ import java.util.Set;
  */	
 public class LinearProbingMap<K, V> implements Map<K, V>
 {
+	//TODO
+	// learning about hashCode() seems like a good place to start, go from there. https://www.baeldung.com/java-hashcode
+	// Might be able to have this done by tomorrow, which would be super lit.
+
 	/**
 	 * No need for description.
 	 * @param <K> no need for description.
