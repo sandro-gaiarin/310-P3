@@ -138,18 +138,28 @@ public class LinearProbingMap<K, V> implements Map<K, V>
 	 */			
 	public V get(Object key) {
 		// YOUR CODE GOES HERE
-		return null;
+		try {
+			return table[computeHash(key)].value;
+		} catch (NullPointerException e) {
+			return null;
+		}
 	}
 	
 	/**
-	 * Add description.
-	 * @param key add description.
-	 * @param value add description.
-	 * @return add description.
+	 * Associates the specified value with the specified key in this map.
+	 * @param key Key that will be associated with the new value.
+	 * @param value Value to be added to the map.
+	 * @return The previous value of the specified key, otherwise null.
 	 */	
 	public V put(K key, V value) {  
 		// YOUR CODE GOES HERE
-		return null;
+		V returnValue = get(key); //old value of the key, or null if it didn't have one
+		if (returnValue == null) {
+			size += 1;
+		}
+		Pair<K,V> putPair = new Pair<>(key, value);
+		table[computeHash(key)] = putPair;
+		return returnValue;
 	}
 
 ////////////***********////////////////////
@@ -277,6 +287,7 @@ public class LinearProbingMap<K, V> implements Map<K, V>
 		for (int i = 1; i <= n; i++) {
 			dict.put(""+i, i);
 		}
+		System.out.println(dict.size());
 		if (dict.size() == 10) {
 			System.out.println("Yay1");
 		}
@@ -296,6 +307,7 @@ public class LinearProbingMap<K, V> implements Map<K, V>
 		if (dict.get("20") == 200) {
 			System.out.println("Yay5");
 		}
+		System.out.println(dict.size);
 		if (dict.size() == 11) {
 			System.out.println("Yay6");
 		}
