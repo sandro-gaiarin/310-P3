@@ -3,13 +3,17 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Add your description here.
+ * This class has two main functionalities: It can identify similar sounding words
+ * from multiple that are passed by the user through the command line, and can pull similar
+ * sounding words to ONE user-provided word from a database of words and their unisounds (this must be provided).
+ *
+ * @author W. Masri and Alessandro Gaiarin
  */
 class SimilarSounds
 {
 	//TODO:
-	// Need to add an "output" print statement to Deliverables? Not sure.
-	// Commenting, cleanup!
+	// Need to add an "output" print statement to Deliverables? Professor Masri on Piazza seems to imply no.
+	// Otherwise, code complete!
 
 	// ******DO NO CHANGE********//
 		
@@ -66,10 +70,6 @@ class SimilarSounds
 	}
 	// ******DO NO CHANGE********//
 	
-	
-	
-	
-	
 	/**
 	 * Given a list of all entries in the database, this method populates the wordToSound map
 	 * as follows: the key is the word, and the value is the sound (i.e., the sequence of unisounds)
@@ -80,7 +80,6 @@ class SimilarSounds
 	 */
 	public static void populateWordToSoundMap(List<String> lines) { //TODO Test
 		for (int i = 0; i < lines.size(); ++i) { //step through list of lines
-			//System.out.println("WE'RE LOOPING IN populateWordToSoundMap!!!!!!!");
 			wordToSound.put(Extractor.extractWordFromLine(lines.get(i)), Extractor.extractSoundFromLine(lines.get(i)));
 			//extracts word for the key, and sound for the value, and puts them in the wordToSound map
 		}
@@ -98,7 +97,6 @@ class SimilarSounds
 	 */
 	public static void populateSoundGroupToSimilarWordsMap(List<String> lines) { //TODO PRETTY SURE THIS IS WHAT'S BROKEN note: maybe not anymore
 		for (int i = 0; i < lines.size(); ++i) {
-			//System.out.println("WE'RE LOOPING IN populateSoundGroupToSimilarWordsMap!!!!!!!!");
 			String soundGroup = Extractor.extractSoundGroupFromSound(lines.get(i));
 			try {
 				(soundGroupToSimilarWords.get(soundGroup)).insert(Extractor.extractWordFromLine(lines.get(i))); //insert word to BST
@@ -149,16 +147,12 @@ class SimilarSounds
 
 			try { //try block if the word doesn't exist
 				BST<String> similarWordTree = soundGroupToSimilarWords.get(Extractor.extractSoundGroupFromSound(wordToSound.get(capsWord)));
-				//System.out.println("BST: " + similarWordTree);
 				for (int j = i + 1; j < wordsCopy.size(); ++j) {
-					//System.out.println("    Current word (j): " + wordsCopy.get(j));
-					//System.out.println("WE'RE LOOPING IN findSimilarWordsInList!!!!!!!!");
 					if (capsWord.compareTo(wordsCopy.get(j).toUpperCase()) == 0) { //get rid of duplicates in the list
 						wordsCopy.remove(j);
 						j = j - 1;
 					}
 					else if (similarWordTree.find((wordsCopy.get(j).toUpperCase())) != null) { //make it uppercase
-						//System.out.println("Remove j if-statement entered");
 						similarWords = similarWords + "\"" + wordsCopy.get(j) + "\" ";
 						wordsCopy.remove(j); //remove it from the list if it is a similar word
 						j = j - 1; //have to move j back when we remove the word from the list
@@ -174,10 +168,7 @@ class SimilarSounds
 			} catch (NullPointerException e){
 				unrecognizedWords.add(word); //if it gets a nullpointerexception, the word does not exist in the txt doc.
 			}
-			//next I need to build up the return string with what needs to be output
-
 		}
-
 		//Below should happen at the end
 		String unrecognizedString = "";
 		for (int i = 0; i < unrecognizedWords.size(); ++i) {

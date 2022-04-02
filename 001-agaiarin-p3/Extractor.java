@@ -108,14 +108,12 @@ class Extractor
 	 * @return string
 	 */
 	public static String extractSoundGroupFromSound(String sound) {
-		//System.out.println("EXTRACT SOUND GROUP FROM: " + sound);
 		int uniNumber = -1; //tracks largest number for most emphasized unisound
 		String uni = ""; //tracks most emphasized unisound
 		StringTokenizer tokenizer = new StringTokenizer(sound);
 		String returnString = "";
 
 		if (!tokenizer.hasMoreTokens()) { //checks for empty string
-			//System.out.println("Empty string found, returning empty string.");
 			return returnString;
 		}
 
@@ -130,16 +128,11 @@ class Extractor
 				}
 			}
 		}
-		//System.out.println("First while loop completed. current uniNumber: " + uniNumber + "; current uni: " + uni + ";");
-
 		tokenizer = new StringTokenizer(sound); //remake tokenizer because we have to iterate again
 		boolean foundUni = false;
 		if (uniNumber == -1) { //check if NONE of the sounds are emphasized
 			foundUni = true;
 		}
-
-		//System.out.println("foundUni initialized. Current foundUni: " + foundUni);
-
 		while (tokenizer.hasMoreTokens()) {
 			String currentToken = tokenizer.nextToken();
 
@@ -159,32 +152,7 @@ class Extractor
 				}
 			}
 		}
-
 		return returnString;
-		/* PSEUDOCODE:
-		greatest token number = -1 (initial number)
-		most emphasized unisound = string token
-		tokenizer, etc.
-
-		iterate through the sound string {
-			check each token for a number at the end of it; so, basically, need to iterate through each token {
-				if there's a number at the end of the token {
-					if number is greater than current greatest token number {
-						this token becomes the new main sound
-					}
-				}
-			}
-		}
-
-		search for most emphasized unisound again {
-			if the sound is found {
-				change boolean to true
-			}
-			if soundfoundboolean true {
-				add sound to returnString
-			}
-		}
-		 */
 	}
 
 

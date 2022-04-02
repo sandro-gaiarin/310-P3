@@ -51,9 +51,9 @@ class BST<T extends Comparable<T>> {
 
 	/**
 	 * Private method for inorderToString().
-	 * @param node
-	 * @param returnString
-	 * @return
+	 * @param node Node that the method will begin at.
+	 * @param returnString String that the method begins with.
+	 * @return String.
 	 */
 	private String inStringNode(Node<T> node, String returnString) {
 		if (node != null) {
@@ -112,9 +112,9 @@ class BST<T extends Comparable<T>> {
 
 	/**
 	 * Private helper function for find().
-	 * @param node
-	 * @param key
-	 * @return
+	 * @param node Node that the method begins at.
+	 * @param key Key that the method is looking for.
+	 * @return The node with the key we're looking for, or null if it does not exist.
 	 */
 	private Node<T> findNode(Node<T> node, T key) {
 		if (node == null) {

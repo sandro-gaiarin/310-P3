@@ -14,8 +14,7 @@ import java.util.Set;
 public class LinearProbingMap<K, V> implements Map<K, V>
 {
 	//TODO
-	// learning about hashCode() seems like a good place to start, go from there. https://www.baeldung.com/java-hashcode
-	// Might be able to have this done by tomorrow, which would be super lit.
+	// Nothing! Code complete.
 
 	/**
 	 * No need for description.
@@ -129,40 +128,39 @@ public class LinearProbingMap<K, V> implements Map<K, V>
 		}
 	}
 
-////////////*****ADD YOUR CODE HERE******////////////////////
+	////////////*****ADD YOUR CODE HERE******////////////////////
 
 	/**
-	 * Add description.
-	 * @param key add description.
-	 * @return add description.
+	 * Returns the value of the given key.
+	 * @param key Key of the value we're looking for.
+	 * @return value of given key.
 	 */			
 	public V get(Object key) {
-		// YOUR CODE GOES HERE
 		try {
 			return table[computeHash(key)].value;
-		} catch (NullPointerException e) {
+		} catch (NullPointerException e) { //null if the key doesn't have anything there
 			return null;
 		}
 	}
 	
 	/**
-	 * Associates the specified value with the specified key in this map.
+	 * Places the specified value with the specified key in this map.
 	 * @param key Key that will be associated with the new value.
 	 * @param value Value to be added to the map.
 	 * @return The previous value of the specified key, otherwise null.
 	 */	
-	public V put(K key, V value) {  
-		// YOUR CODE GOES HERE
+	public V put(K key, V value) {
 		V returnValue = get(key); //old value of the key, or null if it didn't have one
 		if (returnValue == null) {
+			//increase size if returnValue was null (i.e., this key was empty before)
 			size += 1;
 		}
-		Pair<K,V> putPair = new Pair<>(key, value);
-		table[computeHash(key)] = putPair;
+		Pair<K,V> putPair = new Pair<>(key, value); //create a new pair
+		table[computeHash(key)] = putPair; //place pair in the table at the index of the key's hash
 		return returnValue;
 	}
 
-////////////***********////////////////////
+	////////////***********////////////////////
 
 	/**
 	 * No need for a description.
